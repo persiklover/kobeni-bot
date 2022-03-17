@@ -1,0 +1,40 @@
+{
+  
+  "ignorePatterns": ["*.test.js"],
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "extends": ["eslint:recommended"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2020
+  },
+  "rules": {
+    "quotes": ["error", "single"],
+    "semi": "error",
+    "no-var": "warn",
+    "no-unused-vars": "off",
+    "no-duplicate-imports": "warn",
+    "camelcase": "warn",
+    "comma-dangle": ["error", "never"],
+    "comma-spacing": [
+      "error",
+      {
+        "before": false,
+        "after": true
+      }
+    ],
+    "no-empty": "warn",
+    "func-call-spacing": ["error", "never"],
+    "key-spacing": [
+      "error",
+      {
+        "beforeColon": false,
+        "afterColon": true,
+        "mode": "minimum"
+      }
+    ],
+    "space-before-blocks": "error"
+  }
+}
