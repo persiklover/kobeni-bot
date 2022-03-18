@@ -2,21 +2,33 @@ const { Client } = require('discord.js');
 const bot = new Client();
 
 const fs = require('fs');
+const path = require('path');
 
-function getCommands() {
-  const dir = './commands';
-  const dirs = fs.readdirSync(dir, { withFileTypes: true });
-  const files = dirs.map(dirent => {
-    const res = dirent.name;
-    return dirent.isDirectory() ? getCommands(res) : res;
-  });
+function walk(directory) {
+  /** @type {string[]} */
+  let fileList = [];
 
-  return files
-    .filter(file => file.endsWith('.js'))
-    .map(filename => require(`./commands/${filename}`));
+  const files = fs.readdirSync(directory);
+  for (const file of files) {
+    const p = path.join(directory, file);
+    if (fs.statSync(p).isDirectory()) {
+      fileList = [...fileList, ...walk(p)];
+    }
+    else {
+      fileList.push(p);
+    }
+  }
+
+  return fileList;
 }
 
-const commands = getCommands();
+function getCommands(directory) {
+  return walk(directory)
+    .filter(file => file.endsWith('.js'))
+    .map(filename => require(`./${filename}`));
+}
+
+const commands = getCommands('./commands');
 
 bot.on('ready', () => {
   console.log('Bot online');
