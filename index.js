@@ -49,6 +49,12 @@ bot.on('message', msg => {
   }
 });
 
+bot.on('guildMemberUpdate', (oldUser, newUser) => {
+  if (oldUser.nickname !== newUser.nickname) {
+    defaultTextChannel.send(`${oldUser} сменил имя с "${oldUser.nickname}" на "${newUser.nickname}"`);
+  }
+});
+
 bot.on('emojiCreate', emoji => {
   defaultTextChannel.send('На сервере появился новый эмоджис!');
   defaultTextChannel.send(`${emoji}`);
