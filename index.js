@@ -49,4 +49,9 @@ bot.on('message', msg => {
   }
 });
 
+bot.on('emojiCreate', emoji => {
+  defaultTextChannel.send('На сервере появился новый эмоджис!');
+  defaultTextChannel.send(`${emoji}`);
+});
+
 bot.login(fs.readFileSync('./token.txt', { encoding: 'utf-8' }));
