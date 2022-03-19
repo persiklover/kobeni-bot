@@ -30,8 +30,13 @@ function getCommands(directory) {
 
 const commands = getCommands('./commands');
 
+/** @type {TextChannel} */
+let defaultTextChannel;
+
 bot.on('ready', () => {
   console.log('Bot online');
+
+  defaultTextChannel = bot.channels.cache.find(channel => channel.type === 'text');
 });
 
 bot.on('message', msg => {
