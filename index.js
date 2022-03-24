@@ -24,7 +24,8 @@ function walk(directory) {
 
 function getCommands(directory) {
   return walk(directory)
-    .filter(file => file.endsWith('.js'))
+    .filter(filename => filename.match(/\.(j|t)s$/))
+    .filter(filename => !filename.endsWith('.d.ts'))
     .map(filename => require(`./${filename}`));
 }
 
